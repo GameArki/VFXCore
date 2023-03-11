@@ -10,10 +10,14 @@ namespace GameArki.VFX {
         int vfxID;
         public int VFXID => vfxID;
 
-        ParticleSystem psMain;
         ParticleSystem[] psAll;
-        public bool IsLoop => psMain.main.loop;
-        public bool IsMainPlaying => psMain.isPlaying;
+        ParticleSystem psRoot => psAll[0];
+
+        bool isLoopAtFirst;
+
+        public bool IsRootLoop => psRoot.main.loop;
+
+        public bool IsRootPlaying => psRoot.isPlaying;
 
         string name;
         public string Name => name;
@@ -50,10 +54,17 @@ namespace GameArki.VFX {
             isManualTick = false;
         }
 
-        public void Play() {
+        public void DefaultPlay() {
             if (psAll != null) {
-                foreach (var ps in psAll) {
-                    if (ps == null) continue;
+                var rootMain = psRoot.main;
+                rootMain.loop = isLoopAtFirst;
+                psRoot.Play();
+
+                var len = psAll.Length; 
+                for (int i = 1; i < len; i++) {
+                    var ps = psAll[i];
+                    var main = ps.main;
+                    main.loop = isLoopAtFirst;
                     ps.Play();
                 }
             }
@@ -61,7 +72,7 @@ namespace GameArki.VFX {
         }
 
         public void Play(bool isLoop) {
-            var main = psMain.main;
+            var main = psRoot.main;
             main.loop = isLoop;
             if (psAll != null) {
                 foreach (var ps in psAll) {
@@ -95,8 +106,9 @@ namespace GameArki.VFX {
         public void SetVFXGo(GameObject vfxGo) {
             UnityEngine.Object.DontDestroyOnLoad(vfxGo);
             this.vfxGo = vfxGo;
-            this.psMain = vfxGo.GetComponentInChildren<ParticleSystem>();
             this.psAll = vfxGo.GetComponentsInChildren<ParticleSystem>();
+            this.isLoopAtFirst = psRoot.main.loop;
+            Debug.Log($"VFXPlayerEntity.SetVFXGo: psAll length = {psAll.Length}");
         }
 
         public bool IsAllStopped() {

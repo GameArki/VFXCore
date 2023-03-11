@@ -7,7 +7,7 @@ namespace GameArki.VFX {
         /// <summary>
         /// Try to play an vfx with a given name. If the vfx is not found, return -1.
         /// </summary>
-        int TryPlayVFX(string clipName, Transform parent);
+        int TryPlayVFX_Default(string clipName, Transform parent);
 
         /// <summary>
         /// Try to play an vfx with a given name and set loop. If the vfx is not found, return -1.

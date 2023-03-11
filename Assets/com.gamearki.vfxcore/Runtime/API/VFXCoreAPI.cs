@@ -14,8 +14,8 @@ namespace GameArki.VFX {
             this.domains = domains;
         }
 
-        int IVFXCoreAPI.TryPlayVFX(string clipName, Transform parent) {
-            return domains.TryPlayVFX(clipName, parent);
+        int IVFXCoreAPI.TryPlayVFX_Default(string clipName, Transform parent) {
+            return domains.TryPlayVFX_Default(clipName, parent);
         }
 
         int IVFXCoreAPI.TryPlayVFX(string clipName, bool isLoop, Transform parent) {

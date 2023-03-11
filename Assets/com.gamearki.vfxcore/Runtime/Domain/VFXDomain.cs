@@ -14,7 +14,7 @@ namespace GameArki.VFX {
             this.context = context;
         }
 
-        public int TryPlayVFX(string vfxName, Transform parent = null) {
+        public int TryPlayVFX_Default(string vfxName, Transform parent = null) {
             if (vfxName == null) {
                 return -1;
             }
@@ -23,7 +23,7 @@ namespace GameArki.VFX {
                 return -1;
             }
 
-            player.Play();
+            player.DefaultPlay();
             player.SetParent(parent);
             player.SetManualTick(false);
 

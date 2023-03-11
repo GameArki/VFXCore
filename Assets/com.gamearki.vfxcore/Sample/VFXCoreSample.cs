@@ -41,18 +41,18 @@ public class VFXCoreSample : MonoBehaviour {
 
         GUILayout.Label("当前特效:" + vfxName);
 
-        if (GUILayout.Button("播放特效")) {
+        if (GUILayout.Button("播放特效:默认方式")) {
             api.TryStopVFX(vfxID);
-            vfxID = api.TryPlayVFX(vfxName, transform);
+            vfxID = api.TryPlayVFX_Default(vfxName, transform);
         }
 
-        if (GUILayout.Button("播放特效 (循环)")) {
+        if (GUILayout.Button("播放特效:循环方式")) {
             api.TryStopVFX(vfxID);
             vfxID = api.TryPlayVFX(vfxName, true, transform);
         }
 
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("播放特效 (手动Tick)")) {
+        if (GUILayout.Button("播放特效:手动Tick方式")) {
             api.TryStopVFX(vfxID);
             vfxID = api.TryPlayVFX_ManualTick(vfxName, tickCount, transform);
         }
